@@ -7,18 +7,65 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
+library(psych)
+library(GPArotation)
+library(tidyverse)
+
 ```
 
+# Question 1
 
+```{r, include=FALSE}
+psnality = read.csv("./HW2dat.csv",head=TRUE,sep=",") %>% janitor::clean_names()
+
+summary(psnality)
+
+attach(psnality)
+
+usevars = cbind(c1,c2,c3,c4,c5)
+
+## Here we use polychoric correlation and do parallel analysis of eigenvalues
+psnalityparallel = fa.parallel.poly(usevars)
+str(psnalityparallel)
+
+psnalityparallel$pc.values
+psnalityparallel$pc.sim$mean
+```
 
 ```{r}
+## Here we use Pearson correlation 
+psnalityparallel.pearson = fa.parallel(usevars)
 
 ```
-
-
 
 ```{r}
+str(psnalityparallel.pearson)
+psnalityparallel.pearson$pc.values
+psnalityparallel.pearson$pc.sim
+```
+
+From the plot and eigenvalues, five eigenvalues were plotted and there is one eigenvalue greater than 1 and before the "bending". Through paralled analysis, one eigenvalue is greater than expected mean of randomly generated data.
+
+
+# Question 2
+```{r}
+bfi <- read.csv(file = "./HW2dat.csv",header = T)
+C1 <- bfi$C1
+C2 <- bfi$C2
+C3 <- bfi$C3
+C4 <- bfi$C4
+C5 <- bfi$C5
+C4_R <- bfi$C4_R
+C5_R <- bfi$C5_R
+
+
+usevars<-data.frame(cbind(C1,C2,C3,C4_R,C5_R))
+alpha(usevars)
+
 
 ```
+
+
 
 
