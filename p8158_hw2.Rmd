@@ -61,7 +61,7 @@ C5_R <- bfi$C5_R
 
 
 usevars<-data.frame(cbind(C1,C2,C3,C4_R,C5_R))
-alpha(usevars)
+psych::alpha(usevars)
 
 
 ```
